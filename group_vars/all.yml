@@ -1,0 +1,15 @@
+---
+# Variables globales para el despliegue de whoami
+
+# Parámetros de la aplicación whoami
+whoami_app_name: "whoami_app"
+whoami_image: "containous/whoami"
+whoami_container_port: 80
+whoami_host_port: 8081
+whoami_deploy_path: "/opt/whoami"
+
+# Parámetros de Nginx
+whoami_server_name: "cerebro.local"   # puedes cambiarlo por tu dominio, ej. "example.com"
+nginx_sites_available_path: "/etc/nginx/sites-available"
+nginx_sites_enabled_path: "/etc/nginx/sites-enabled"
+nginx_whoami_site_name: "whoami.conf"

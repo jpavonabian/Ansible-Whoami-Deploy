@@ -1,0 +1,40 @@
+---
+- name: Instalar Nginx
+  apt:
+    name: nginx
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Habilitar y arrancar Nginx
+  systemd:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Plantilla de configuración para whoami en Nginx
+  template:
+    src: nginx-whoami.conf.j2
+    dest: "{{ nginx_sites_available_path }}/{{ nginx_whoami_site_name }}"
+    mode: '0644'
+
+- name: Deshabilitar sitio por defecto de Nginx si existe
+  file:
+    path: "{{ nginx_sites_enabled_path }}/default"
+    state: absent
+  ignore_errors: true
+
+- name: Habilitar sitio whoami
+  file:
+    src: "{{ nginx_sites_available_path }}/{{ nginx_whoami_site_name }}"
+    dest: "{{ nginx_sites_enabled_path }}/{{ nginx_whoami_site_name }}"
+    state: link
+
+- name: Probar configuración de Nginx
+  shell: nginx -t
+  register: nginx_test
+  failed_when: "'successful' not in nginx_test.stderr"
+
+- name: Recargar Nginx
+  systemd:
+    name: nginx
+    state: reloaded

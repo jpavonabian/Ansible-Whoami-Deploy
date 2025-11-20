@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  whoami:
+    image: {{ whoami_image }}
+    container_name: {{ whoami_app_name }}
+    ports:
+      - "127.0.0.1:{{ whoami_host_port }}:{{ whoami_container_port }}"
+    restart: unless-stopped

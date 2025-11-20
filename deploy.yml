@@ -1,0 +1,9 @@
+---
+- name: Desplegar servicio whoami con Docker y Nginx
+  hosts: whoami_hosts
+  become: true
+
+  roles:
+    - docker
+    - whoami
+    - nginx

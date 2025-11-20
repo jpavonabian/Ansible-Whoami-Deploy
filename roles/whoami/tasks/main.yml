@@ -1,0 +1,18 @@
+---
+- name: Crear directorio de despliegue de whoami
+  file:
+    path: "{{ whoami_deploy_path }}"
+    state: directory
+    mode: '0755'
+
+- name: Plantilla de docker-compose para whoami
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ whoami_deploy_path }}/docker-compose.yml"
+    mode: '0644'
+
+- name: Levantar servicio whoami con Docker Compose
+  shell: |
+    docker compose -f docker-compose.yml up -d
+  args:
+    chdir: "{{ whoami_deploy_path }}"
