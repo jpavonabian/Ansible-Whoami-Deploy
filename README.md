@@ -1,5 +1,7 @@
 # ansible-whoami-deploy
 
+![Ansible CI](https://github.com/jpavonabian/Ansible-Whoami-Deploy/actions/workflows/ansible-ci.yml/badge.svg)
+
 Proyecto de ejemplo de **DevOps / Infra ligera** con:
 
 - Ansible
